@@ -10,11 +10,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 // ---- EGY HELYEN: cégadatok (a cégnév munkanév, Sándorral egyeztetendő) ----
 const SITE = {
-  name: 'Oláh Duguláselhárítás',      // EGYEZTETENDŐ: végleges cégnév
+  name: 'Duguláselhárítás',           // a fejlécben csak ez (Sándor kérése, 2026-10-07)
   person: 'Oláh Sándor',
   phone: '06 20 292 2730',
   tel: '+36202922730',
-  area: 'Nógrád és Heves vármegye',
+  area: 'Salgótarján és 70 km-es körzete',
+  fb: 'https://www.facebook.com/profile.php?id=61581115711203',
   year: '2026',
 };
 
@@ -44,6 +45,7 @@ const PAGES = [
 
 const ICON_PHONE = '<svg class="ico" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M224,154.8l-47.09-21.11-.18-.08a19.94,19.94,0,0,0-19,1.75,13.08,13.08,0,0,0-1.12.84l-22.31,19c-13-7.05-26.43-20.37-33.49-33.21l19.06-22.66a11.76,11.76,0,0,0,.85-1.15,20,20,0,0,0,1.66-18.83,1.42,1.42,0,0,1-.08-.18L101.2,32A20.06,20.06,0,0,0,80.42,20.15,60.27,60.27,0,0,0,28,80c0,81.61,66.39,148,148,148a60.27,60.27,0,0,0,59.85-52.42A20.06,20.06,0,0,0,224,154.8ZM176,204A124.15,124.15,0,0,1,52,80,36.29,36.29,0,0,1,80.48,44.46l18.82,42L80.14,109.28a12,12,0,0,0-.86,1.16A20,20,0,0,0,78,130.08c9.42,19.28,28.83,38.56,48.31,48A20,20,0,0,0,146,176.63a11.63,11.63,0,0,0,1.11-.85l22.43-19.07,42,18.81A36.29,36.29,0,0,1,176,204Z"/></svg>';
 const ICON_ARROW = '<svg class="ico" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg>';
+const ICON_FB = '<svg class="ico" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm12,191.13V156h20a12,12,0,0,0,0-24H140V112a12,12,0,0,1,12-12h16a12,12,0,0,0,0-24H152a36,36,0,0,0-36,36v20H96a12,12,0,0,0,0,24h20v55.13a84,84,0,1,1,24,0Z"/></svg>';
 const ICON_MENU = '<svg class="ico" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"/></svg>';
 const ICON_X = '<svg class="ico" viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></svg>';
 
@@ -76,6 +78,7 @@ function footer() {
     <div class="site-foot__brand">
       <p class="site-foot__name">${SITE.name}</p>
       <p>${SITE.person} · ${SITE.area}</p>
+      <a class="site-foot__fb" href="${SITE.fb}" target="_blank" rel="noopener" aria-label="Facebook">${ICON_FB}</a>
     </div>
     <ul class="site-foot__nav">${links}</ul>
     <div class="site-foot__call"><span>0-24 hívható ügyelet</span><a class="site-foot__tel" href="tel:${SITE.tel}">${SITE.phone}</a></div>
@@ -94,9 +97,14 @@ function jsonld(page) {
     telephone: SITE.tel,
     image: 'media/gep-1100.webp',
     areaServed: [
-      { '@type': 'AdministrativeArea', name: 'Nógrád vármegye' },
-      { '@type': 'AdministrativeArea', name: 'Heves vármegye' },
+      { '@type': 'City', name: 'Salgótarján' },
+      {
+        '@type': 'GeoCircle',
+        geoMidpoint: { '@type': 'GeoCoordinates', latitude: 48.0986, longitude: 19.8045 },
+        geoRadius: 70000,
+      },
     ],
+    sameAs: [SITE.fb],
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -130,6 +138,7 @@ for (const p of PAGES) {
   src = src.replace(/\{\{(\w+)\}\}/g, (_, k) => {
     if (k === 'ICON_PHONE') return ICON_PHONE;
     if (k === 'ICON_ARROW') return ICON_ARROW;
+    if (k === 'ICON_FB') return ICON_FB;
     if (!(k in SITE)) throw new Error('Ismeretlen változó: ' + k);
     return SITE[k];
   });
@@ -152,7 +161,7 @@ for (const p of PAGES) {
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2">
 <link rel="stylesheet" href="js/vendor/lenis.css">
-<link rel="stylesheet" href="css/site.css?v=1">
+<link rel="stylesheet" href="css/site.css?v=2">
 <script>document.documentElement.classList.add('js')</script>
 ${jsonld(p)}
 </head>

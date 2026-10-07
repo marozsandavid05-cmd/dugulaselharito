@@ -125,6 +125,9 @@ p:last-child{margin-bottom:0}
 .site-foot__in{display:grid;grid-template-columns:1.2fr 1fr auto;gap:40px;align-items:start}
 .site-foot__name{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:1.25rem;margin-bottom:.5em}
 .site-foot__brand p:not(.site-foot__name){color:var(--on-deep-2);margin:0}
+.site-foot__fb{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:12px 0 0 -10px;color:var(--on-deep-2);transition:color .2s var(--ease)}
+.site-foot__fb:hover{color:var(--on-deep)}
+.site-foot__fb .ico{width:26px;height:26px}
 .site-foot__nav{list-style:none;margin:0;padding:0;display:grid;gap:4px}
 .site-foot__nav a{display:inline-block;padding:6px 0;text-decoration:none;color:var(--on-deep-2)}
 .site-foot__nav a:hover{color:var(--on-deep)}
@@ -231,6 +234,8 @@ p:last-child{margin-bottom:0}
 .area__grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(32px,5vw,80px);align-items:end}
 .area h2{font-size:clamp(2.25rem,5vw,4.5rem);font-stretch:120%;max-width:11em}
 .area__body p{color:var(--on-deep-2);margin-bottom:1.8rem;max-width:28em}
+.area__body p:has(+ .area__b2b){margin-bottom:.9rem}
+.area__body .area__b2b{color:var(--on-deep)}
 .area + .site-foot{padding-top:24px}
 @media (max-width:899px){.area__grid{grid-template-columns:1fr}}
 
@@ -288,7 +293,7 @@ p:last-child{margin-bottom:0}
 .about-head{padding:clamp(56px,8vw,112px) 0 clamp(40px,5vw,72px)}
 .about-head__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(20px,3vw,48px) clamp(24px,4vw,64px)}
 .about-head h1{grid-column:1/-1;font-size:clamp(2.5rem,6.4vw,6.25rem);font-stretch:122%;line-height:.98;max-width:13.5em}
-.about-head__text{grid-column:5/13;columns:2;column-gap:clamp(24px,4vw,56px);color:var(--ink-2);margin-top:clamp(8px,2vw,24px)}
+.about-head__text{grid-column:7/13;color:var(--ink-2);margin-top:clamp(8px,2vw,24px)}
 .about-head__text p{break-inside:avoid}
 @media (max-width:899px){
   .about-head__text{grid-column:1/-1;columns:1}
@@ -366,6 +371,8 @@ p:last-child{margin-bottom:0}
 .details__list dt{font-weight:700}
 .details__list dd{margin:0;color:var(--ink-2)}
 .details__list a{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.details__fb{display:inline-flex;align-items:center;gap:.45em}
+.details__fb .ico{width:1.25em;height:1.25em}
 .details__tips h2{font-size:clamp(1.75rem,2.8vw,2.5rem);margin-bottom:1.4rem}
 .details__tips ol{margin:0 0 1.6rem;padding:0;list-style:none;counter-reset:t}
 .details__tips li{counter-increment:t;display:grid;grid-template-columns:2.4em 1fr;padding:12px 0}
