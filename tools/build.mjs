@@ -44,7 +44,7 @@ const FAQ = [
   ['Van garancia a munkára?', 'Igen, az elvégzett munkára 6 hónap garanciát vállalok.'],
   ['Cégeknek is dolgozik?', 'Igen, cégeknek és intézményeknek is dolgozom, számlát adok.'],
 ];
-const PATH = { fooldal: '/', arak: '/arak', rolunk: '/rolunk', kapcsolat: '/kapcsolat', nincs: '/404' };
+const PATH = { fooldal: '/', arak: '/arak', rolunk: '/rolunk', kapcsolat: '/kapcsolat', aszf: '/aszf', adatvedelem: '/adatvedelem', nincs: '/404' };
 
 const IMG = JSON.parse(readFileSync(join(ROOT, 'tools', 'kepek.json'), 'utf8'));
 const used = new Map();
@@ -68,6 +68,12 @@ const PAGES = [
   { file: 'arak.html', key: 'arak', label: 'Szolgáltatások és árak' },
   { file: 'rolunk.html', key: 'rolunk', label: 'Géppark és rólunk', crumb: 'Géppark és rólam' },
   { file: 'kapcsolat.html', key: 'kapcsolat', label: 'Kapcsolat', geo: true },
+];
+// a jogi oldalak NEM menüpontok: csak a lábléc alsó sorában (Impresszum és ÁSZF · Adatvédelem).
+// Az e-mail-cím és a székhely csak ezen a két oldalon szerepel (David döntése, 2026-10-07).
+const LEGAL = [
+  { file: 'aszf.html', key: 'aszf', label: 'Általános Szerződési Feltételek', foot: 'Impresszum és ÁSZF', href: 'aszf.html#impresszum', legal: true },
+  { file: 'adatvedelem.html', key: 'adatvedelem', label: 'Adatvédelmi tájékoztató', foot: 'Adatvédelem', href: 'adatvedelem.html', legal: true },
 ];
 // a 404 nem menüpont: külön, noindex, mély útvonalon is betölt (base csak http(s) alatt)
 const PAGE404 = { file: '404.html', key: 'nincs', label: 'Az oldal nem található', noindex: true };
@@ -100,8 +106,9 @@ function header(active) {
 </header>`;
 }
 
-function footer() {
+function footer(active) {
   const links = PAGES.map(p => `<li><a href="${p.file}">${p.label}</a></li>`).join('');
+  const legal = LEGAL.map(p => `<li><a href="${p.href}"${p.key === active ? ' aria-current="page"' : ''}>${p.foot}</a></li>`).join('');
   return `<footer class="site-foot">
   <div class="wrap site-foot__in">
     <div class="site-foot__brand">
@@ -112,7 +119,7 @@ function footer() {
     <ul class="site-foot__nav">${links}</ul>
     <div class="site-foot__call"><span>0-24 hívható ügyelet</span><a class="site-foot__tel" href="tel:${SITE.tel}">${SITE.phone}</a></div>
   </div>
-  <div class="wrap site-foot__base"><p>© ${SITE.year} ${SITE.name}</p></div>
+  <div class="wrap site-foot__base"><p>© ${SITE.year} ${SITE.name}</p><ul class="site-foot__legal" aria-label="Jogi tudnivalók">${legal}</ul></div>
 </footer>
 <nav class="callbar-wrap" aria-label="Gyors hívás"><a class="callbar" href="tel:${SITE.tel}">${ICON_PHONE}<span>Hívás</span><span class="callbar__num">${SITE.phone}</span></a></nav>`;
 }
@@ -217,7 +224,7 @@ function faq() {
 }
 
 const out = [];
-for (const p of [...PAGES, PAGE404]) {
+for (const p of [...PAGES, ...LEGAL, PAGE404]) {
   let src = readFileSync(join(ROOT, 'src', p.file), 'utf8');
   // fejrész-meta a forrás első sorából: <!--meta:title|description-->  (404-nél description üres lehet)
   const m = src.match(/^<!--meta:(.*?)\|(.*?)-->\s*/);
@@ -239,7 +246,7 @@ for (const p of [...PAGES, PAGE404]) {
   const head = [
     `<title>${title}</title>`,
     desc ? `<meta name="description" content="${esc(desc)}">` : '',
-    p.noindex ? '<meta name="robots" content="noindex">' : '',
+    p.noindex ? '<meta name="robots" content="noindex">' : p.legal ? '<meta name="robots" content="index, follow">' : '',
     U && !p.noindex ? `<link rel="canonical" href="${U}${PATH[p.key]}">` : '',
     `<meta name="theme-color" content="#13212B">`,
     p.geo ? `<meta name="geo.region" content="HU-NO">\n<meta name="geo.placename" content="${SITE.city}">\n<meta name="geo.position" content="${SITE.lat};${SITE.lon}">\n<meta name="ICBM" content="${SITE.lat}, ${SITE.lon}">` : '',
@@ -266,7 +273,7 @@ ${head}
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2">
 <link rel="stylesheet" href="js/vendor/lenis.css">
-<link rel="stylesheet" href="css/site.css?v=3">
+<link rel="stylesheet" href="css/site.css?v=4">
 <script>document.documentElement.classList.add('js')</script>
 ${p.noindex ? '' : jsonld(p, title)}
 </head>
@@ -275,7 +282,7 @@ ${header(p.key)}
 <main id="tartalom">
 ${src.trim()}
 </main>
-${footer()}
+${footer(p.key)}
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/vendor/lenis.min.js" defer></script>
@@ -307,6 +314,8 @@ ${SZOLG.map((s) => `- ${s.name}: ${s.max ? `${grp(s.min)}-${grp(s.max)} Ft` : `$
 - [Szolgáltatások és árak](${L}/arak): árlista, kiszállás, garancia, gyakori kérdések
 - [Géppark és rólam](${L}/rolunk): a saját gépek
 - [Kapcsolat](${L}/kapcsolat): telefon, nyitvatartás, terület
+- [Impresszum és ÁSZF](${L}/aszf): szolgáltatói adatok, szerződési feltételek, garancia, elállás, panaszkezelés
+- [Adatvédelmi tájékoztató](${L}/adatvedelem): milyen adatot kezel, meddig, kinek adja át
 - [Facebook](${SITE.fb})
 `;
 writeFileSync(join(ROOT, 'llms.txt'), llms);
@@ -316,7 +325,7 @@ out.push('llms.txt');
 if (SITE.url) {
   const sm = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${PAGES.map((p) => `  <url><loc>${SITE.url}${PATH[p.key]}</loc><lastmod>${SITE.lastmod}</lastmod></url>`).join('\n')}
+${[...PAGES, ...LEGAL].map((p) => `  <url><loc>${SITE.url}${PATH[p.key]}</loc><lastmod>${SITE.lastmod}</lastmod></url>`).join('\n')}
 </urlset>
 `;
   writeFileSync(join(ROOT, 'sitemap.xml'), sm);

@@ -8,3 +8,4 @@ Megnyitás: dupla kattintás az `index.html`-re.
 - Képek: `media\`, méretek `tools\kepek.json`, források `media\FORRASOK.md`. Egy kép csak egy helyen (a build hibával leáll, ha kétszer szerepel). A megosztási kép `media\og-cover.jpg` (1200×630, a saját gép-fotóból).
 - A build minden HTML-kommentet töröl, és hibával leáll, ha marad. Megjegyzés ne kerüljön az oldalba.
 - Vendor lokálisan: `js\vendor` (GSAP 3.15, ScrollTrigger, Lenis 1.3.26), betűk `fonts\` (Archivo, Atkinson Hyperlegible Next). Lenis csak egeres eszközön fut, érintésen natív görgetés.
+- Jogi oldalak: `srcszf.html` és `srcdatvedelem.html` (Aphelios szövege, a `Claude tesztelés\dugulaselharito-jogi-2026-10-07\` .md fájljaiból). Nem menüpontok, csak a lábléc alsó sorában: „Impresszum és ÁSZF · Adatvédelem” (`LEGAL` a `toolsuild.mjs`-ben). Az e-mail-cím és a székhely csak ezen a két oldalon szerepelhet. A sárga `mark.todo` jelölés élesítés előtt kitöltendő hely, egy sem maradhat benne.

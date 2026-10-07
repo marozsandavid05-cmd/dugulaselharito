@@ -17,4 +17,6 @@
 - [Szolgáltatások és árak](/arak): árlista, kiszállás, garancia, gyakori kérdések
 - [Géppark és rólam](/rolunk): a saját gépek
 - [Kapcsolat](/kapcsolat): telefon, nyitvatartás, terület
+- [Impresszum és ÁSZF](/aszf): szolgáltatói adatok, szerződési feltételek, garancia, elállás, panaszkezelés
+- [Adatvédelmi tájékoztató](/adatvedelem): milyen adatot kezel, meddig, kinek adja át
 - [Facebook](https://www.facebook.com/profile.php?id=61581115711203)
