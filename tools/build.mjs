@@ -143,7 +143,6 @@ for (const p of PAGES) {
     return SITE[k];
   });
   const html = `<!doctype html>
-<!-- Cégnév: „${SITE.name}” munkanév, Sándorral egyeztetendő. Egy helyen állítható: tools/build.mjs, SITE.name -->
 <html lang="hu">
 <head>
 <meta charset="utf-8">
@@ -178,7 +177,10 @@ ${footer()}
 </body>
 </html>
 `;
-  writeFileSync(join(ROOT, p.file), html);
+  // Belső megjegyzés nem kerülhet a kiszolgált oldalra: minden megmaradt HTML-komment törölve.
+  const tiszta = html.replace(/[ \t]*<!--(?!\[if)[\s\S]*?-->[ \t]*\r?\n?/g, '');
+  if (/<!--/.test(tiszta)) throw new Error('HTML-komment maradt: ' + p.file);
+  writeFileSync(join(ROOT, p.file), tiszta);
   out.push(p.file);
 }
 
