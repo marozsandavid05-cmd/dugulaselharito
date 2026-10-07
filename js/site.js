@@ -6,9 +6,10 @@
   var doc = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- Lenis (sima görgetés), saját rAF, nem gsap.ticker ---- */
+  /* ---- Lenis (sima görgetés), saját rAF, nem gsap.ticker; csak egeres eszközön (érintésen natív görgetés) ---- */
   var lenis = null;
-  if (!reduce && typeof window.Lenis === 'function') {
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!reduce && fine && typeof window.Lenis === 'function') {
     try {
       lenis = new window.Lenis({ smoothWheel: true, syncTouch: false, lerp: 0.12 });
       (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());

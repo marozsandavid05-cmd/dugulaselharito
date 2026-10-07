@@ -40,7 +40,8 @@
 
 /* ---- Lenis + alap ---- */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--head-h) + 16px)}
+a,button,summary{touch-action:manipulation}
 body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);
   font-family:var(--f-body);font-size:1.125rem;line-height:1.6}
 img{display:block;max-width:100%;height:auto}
@@ -96,8 +97,9 @@ p:last-child{margin-bottom:0}
   .menu-open .menu-btn__open{display:none}
   .menu-open .menu-btn__close{display:inline-flex}
   .nav{position:fixed;inset:var(--head-h) 0 0 0;z-index:39;background:var(--paper);flex-direction:column;align-items:stretch;
-    gap:0;padding:12px var(--gut) 40px;overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-8px);
+    gap:0;padding:12px var(--gut) 40px;overflow-y:auto;overscroll-behavior:contain;visibility:hidden;opacity:0;transform:translateY(-8px);
     transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s .25s}
+  html.menu-open{overflow:hidden}
   .menu-open .nav{visibility:visible;opacity:1;transform:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
   .nav ul{flex-direction:column;gap:0}
   .nav ul li{border-bottom:1px solid var(--line)}
@@ -234,10 +236,11 @@ p:last-child{margin-bottom:0}
 .area__grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(32px,5vw,80px);align-items:end}
 .area h2{font-size:clamp(2.25rem,5vw,4.5rem);font-stretch:120%;max-width:11em}
 .area__body p{color:var(--on-deep-2);margin-bottom:1.8rem;max-width:28em}
-.area__body p:has(+ .area__b2b){margin-bottom:.9rem}
+.area__body p:has(+ p){margin-bottom:.9rem}
+.area__body .area__towns{color:var(--on-deep-2)}
 .area__body .area__b2b{color:var(--on-deep)}
 .area + .site-foot{padding-top:24px}
-@media (max-width:899px){.area__grid{grid-template-columns:1fr}}
+@media (max-width:899px){.area__grid{grid-template-columns:1fr}.area{padding-bottom:36px}}
 
 /* ======================= ÁRAK ======================= */
 .phead{padding:clamp(64px,9vw,128px) 0 clamp(40px,5vw,64px);text-align:center}
@@ -309,8 +312,9 @@ p:last-child{margin-bottom:0}
 .pair__facts .pair__big{font-family:var(--f-display);font-stretch:122%;font-weight:850;font-size:clamp(3rem,6vw,5.5rem);line-height:.95;color:var(--ink);margin:0 0 8px}
 @media (max-width:899px){
   .pair__a,.pair__facts{grid-column:1/-1}
-  .pair__facts{padding-bottom:0;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;align-items:center}
-  .pair__facts p{margin:0}
+  .pair__facts{padding:20px 0 0;display:block;border-top:2px solid var(--ink)}
+  .pair__facts p{margin:0 0 22px;max-width:none}
+  .pair__facts p:last-child{margin-bottom:0}
   .pair__facts .pair__big{font-size:2.5rem;margin:0}
 }
 
@@ -343,9 +347,10 @@ p:last-child{margin-bottom:0}
   padding:16px 0;border-bottom:1px solid rgba(237,242,244,.18)}
 .promise__list li:first-child{border-top:1px solid rgba(237,242,244,.18)}
 .promise .btn{grid-column:2}
+.promise__link{grid-column:2;justify-self:start;color:var(--on-deep)}
 @media (max-width:899px){
   .promise__grid{grid-template-columns:1fr}
-  .promise .btn{grid-column:1}
+  .promise .btn,.promise__link{grid-column:1}
 }
 
 /* ======================= KAPCSOLAT ======================= */
@@ -381,6 +386,54 @@ p:last-child{margin-bottom:0}
 @media (max-width:899px){
   .details__grid{grid-template-columns:1fr}
   .details__list div{grid-template-columns:1fr;gap:2px}
+}
+
+/* ======================= GYIK (árak) ======================= */
+.faq{padding:clamp(56px,7vw,96px) 0 clamp(64px,8vw,112px)}
+.faq__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+.faq__title{font-size:clamp(2rem,3.2vw,2.9rem);max-width:11em;position:sticky;top:calc(var(--head-h) + 40px)}
+.faq__list{border-top:2px solid var(--ink)}
+.faq__item{border-bottom:1px solid var(--line)}
+.faq__item summary{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px;padding:16px 0;cursor:pointer;list-style:none}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__q{font-size:clamp(1.2rem,1.7vw,1.5rem);font-stretch:112%;line-height:1.2}
+.faq__ico{position:relative;width:18px;height:18px;flex:none}
+.faq__ico::before,.faq__ico::after{content:"";position:absolute;left:0;top:8px;width:18px;height:2px;background:var(--accent);transition:transform .25s var(--ease)}
+.faq__ico::after{transform:rotate(90deg)}
+.faq__item[open] .faq__ico::after{transform:rotate(0)}
+.faq__item summary:hover .faq__q{color:var(--accent-hi)}
+.faq__item p{color:var(--ink-2);max-width:38em;padding:0 0 22px}
+.faq__item p a{color:var(--ink);font-weight:700}
+@media (max-width:899px){
+  .faq__grid{grid-template-columns:1fr}
+  .faq__title{position:static}
+}
+
+/* ======================= RÖVIDEN RÓLAM (kapcsolat) ======================= */
+.brief{background:var(--deep);color:var(--on-deep);padding:clamp(56px,7vw,96px) 0}
+.brief__grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,80px);align-items:start}
+.brief__title{font-size:clamp(1.85rem,3vw,2.75rem);font-stretch:118%}
+.brief__body p{font-size:clamp(1.125rem,1.5vw,1.35rem);line-height:1.6;max-width:36em;color:var(--on-deep);margin-bottom:1.4rem}
+.brief__body .textlink{color:var(--on-deep)}
+@media (max-width:899px){.brief__grid{grid-template-columns:1fr}}
+
+/* ======================= 404 ======================= */
+.phead--404{min-height:calc(100svh - var(--head-h));display:flex;align-items:center}
+.phead--404 .phead__in{width:100%}
+.nf__call{margin-top:2rem}
+.nf__links{list-style:none;margin:2.4rem 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px}
+.nf__links .textlink{color:var(--ink)}
+
+/* ======================= MOBIL: érintési célok és olvasható méret ======================= */
+@media (max-width:899px){
+  /* folyó és kísérő szöveg legalább 16 px */
+  .own__fig figcaption,.pair__a figcaption,.site-foot__call span,.site-foot__base,.callcard__small{font-size:1rem}
+  /* szöveges link: 44 px magas érintési terület, az aláhúzás ugyanott marad */
+  .textlink{min-height:44px;padding-bottom:0;border-bottom:0;
+    background:linear-gradient(currentColor,currentColor) 0 calc(50% + 16px)/100% 2px no-repeat}
+  .site-foot__nav a{padding:10px 0}
+  .site-foot__tel{display:inline-flex;align-items:center;min-height:44px}
+  .details__list a{display:inline-flex;align-items:center;min-height:44px}
 }
 
 /* ---- mozgás csökkentve: semmi nem úszik ---- */

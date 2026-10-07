@@ -1,0 +1,13 @@
+# robots.txt · Duguláselhárítás Salgótarján (javaslat, Aphelios 2026-10-07)
+# Minden kereső és AI-keresési bot olvashatja az oldalt.
+# Keresési botok (OAI-SearchBot, PerplexityBot, Claude-SearchBot, Googlebot, Bingbot) NEM tiltandók:
+# ezek döntik el, hogy a ChatGPT, a Perplexity, a Claude és a Google AI-válaszai idézhetik-e az oldalt.
+# Tanító botok (GPTBot, ClaudeBot, Google-Extended, CCBot) tiltása az ügyfél döntése; alapból engedve.
+
+User-agent: *
+Allow: /
+Disallow: /src/
+Disallow: /tools/
+
+# DOMAIN UTÁN: a sor elején a # törlendő, a <domain> helyére az élő domain
+# Sitemap: https://<domain>/sitemap.xml
