@@ -237,7 +237,6 @@ p:last-child{margin-bottom:0}
 .area h2{font-size:clamp(2.25rem,5vw,4.5rem);font-stretch:120%;max-width:11em}
 .area__body p{color:var(--on-deep-2);margin-bottom:1.8rem;max-width:28em}
 .area__body p:has(+ p){margin-bottom:.9rem}
-.area__body .area__towns{color:var(--on-deep-2)}
 .area__body .area__b2b{color:var(--on-deep)}
 .area + .site-foot{padding-top:24px}
 @media (max-width:899px){.area__grid{grid-template-columns:1fr}.area{padding-bottom:36px}}
