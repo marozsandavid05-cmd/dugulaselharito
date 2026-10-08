@@ -9,5 +9,5 @@ Allow: /
 Disallow: /src/
 Disallow: /tools/
 
-# DOMAIN UTÁN: a sor elején a # törlendő, a <domain> helyére az élő domain
-# Sitemap: https://<domain>/sitemap.xml
+
+Sitemap: https://dugulaselharitasnograd.hu/sitemap.xml

@@ -18,7 +18,7 @@ const SITE = {
   fb: 'https://www.facebook.com/profile.php?id=61581115711203',
   year: '2026',
   // DOMAIN UTÁN: 'https://<domain>' perjel nélkül. Üresen nincs canonical, og:url, sitemap.xml, abszolút og:image és abszolút @id.
-  url: '',
+  url: 'https://dugulaselharitasnograd.hu',
   // a weboldal és a JSON-LD neve csak „Duguláselhárítás” (David döntése, 2026-10-07); a founder Oláh Sándor
   city: 'Salgótarján', region: 'Nógrád',
   lat: 48.09607, lon: 19.80056,              // Salgótarján középpontja (OpenStreetMap Nominatim)

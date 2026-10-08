@@ -13,10 +13,10 @@
 
 ## Oldalak
 
-- [Főoldal](/): mit vállal, terület, elérhetőség
-- [Szolgáltatások és árak](/arak): árlista, kiszállás, garancia, gyakori kérdések
-- [Géppark és rólam](/rolunk): a saját gépek
-- [Kapcsolat](/kapcsolat): telefon, nyitvatartás, terület
-- [Impresszum és ÁSZF](/aszf): szolgáltatói adatok, szerződési feltételek, garancia, elállás, panaszkezelés
-- [Adatvédelmi tájékoztató](/adatvedelem): milyen adatot kezel, meddig, kinek adja át
+- [Főoldal](https://dugulaselharitasnograd.hu/): mit vállal, terület, elérhetőség
+- [Szolgáltatások és árak](https://dugulaselharitasnograd.hu/arak): árlista, kiszállás, garancia, gyakori kérdések
+- [Géppark és rólam](https://dugulaselharitasnograd.hu/rolunk): a saját gépek
+- [Kapcsolat](https://dugulaselharitasnograd.hu/kapcsolat): telefon, nyitvatartás, terület
+- [Impresszum és ÁSZF](https://dugulaselharitasnograd.hu/aszf): szolgáltatói adatok, szerződési feltételek, garancia, elállás, panaszkezelés
+- [Adatvédelmi tájékoztató](https://dugulaselharitasnograd.hu/adatvedelem): milyen adatot kezel, meddig, kinek adja át
 - [Facebook](https://www.facebook.com/profile.php?id=61581115711203)
