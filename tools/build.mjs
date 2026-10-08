@@ -14,7 +14,7 @@ const SITE = {
   person: 'Oláh Sándor',
   phone: '06 20 292 2730',
   tel: '+36202922730',
-  area: 'Salgótarján és 70 km-es körzete',
+  area: 'Salgótarján és 70 km-es körzete, Nógrád megye',
   fb: 'https://www.facebook.com/profile.php?id=61581115711203',
   year: '2026',
   // DOMAIN UTÁN: 'https://<domain>' perjel nélkül. Üresen nincs canonical, og:url, sitemap.xml, abszolút og:image és abszolút @id.
